@@ -3,11 +3,16 @@ import { useState, useEffect, useRef } from "react";
 import jwtDecode from "jwt-decode";
 import { API_URL } from "../../api/config";
 
+
 const Upload = ({ onclick }) => {
  
   const uploadBtn = useRef(null)
   const spinnerView = useRef(null)
+  const contentLoadSpinner = useRef(null)
   const [imageList, setImageList] = useState([]);
+
+  let NO_IMAGE_FOUND = ""
+
   let userId = "";
   const token = localStorage.getItem("token");
   if (token) {
@@ -16,8 +21,6 @@ const Upload = ({ onclick }) => {
     console.log(userId);
   }
   
-
-
   function handleImageUpload(event) {
 
     const currentDate = new Date();
@@ -46,6 +49,7 @@ const Upload = ({ onclick }) => {
         newImage.name = data.generatedName;
         setImageList(prevImageList => [...prevImageList, newImage]);
         spinnerView.current.classList.toggle("d-none");
+       
         uploadBtn.current.classList.toggle("d-none");
       })
       .catch((error) => {
@@ -69,6 +73,8 @@ const Upload = ({ onclick }) => {
       .then((data) => {
         console.log(data);
         setImageList(data);
+        NO_IMAGE_FOUND= "No image has been uploaded"
+        contentLoadSpinner.current.classList.add("d-none");
       })
       .catch((error) => {
         console.error(error);
@@ -97,9 +103,20 @@ const Upload = ({ onclick }) => {
           </div>
         </label>
       </div>
+        
+        <div class="d-flex justify-content-center mt-4">
+        <div ref={contentLoadSpinner} class="spinner-border text-center" role="status">
+              <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+        
 
       <div class="content-view">
-         {imageList.length < 1 ? <p class="pt-2 text-center"> No image has been uploaded.</p> : null }
+
+         
+         {imageList.length < 1 ? <p class="pt-2 text-center">{NO_IMAGE_FOUND}</p> : null }
+
+        
         {imageList.map((singleImage) => (
           <div
             class="single-content"

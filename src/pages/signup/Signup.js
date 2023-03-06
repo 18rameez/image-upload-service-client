@@ -1,9 +1,11 @@
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../api/config";
 
 const Signup = () => {
+
+  const signupBtn = useRef(null)
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,6 +16,7 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    signupBtn.current.innerText = "Loading..."
     const response = await fetch(API_URL+"/signup", {
       method: "POST",
       headers: {
@@ -30,10 +33,15 @@ const Signup = () => {
     } else {
       console.log("Failed to sign in");
       setError("something went wrong");
+      signupBtn.current.innerText = "Submit"
     }
   };
 
   return (
+
+    <div class="signup-container">
+
+    
     <form onSubmit={handleSubmit} class="form-signup" action="/signup" method="post">
       {error && (
         <div className="alert alert-danger alert-sm" role="alert">
@@ -76,6 +84,7 @@ const Signup = () => {
       />
 
       <button
+      ref={signupBtn}
         class="btn btn-lg form-control btn-primary btn-block mb-3"
         type="submit"
       >
@@ -84,6 +93,7 @@ const Signup = () => {
 
       <a href="/login">Already have an account, please sign in</a>
     </form>
+    </div>
   );
 };
 

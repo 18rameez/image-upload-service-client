@@ -1,10 +1,19 @@
 import './style.css'
+import jwtDecode from "jwt-decode";
+import { API_URL } from "../../api/config";
 
 const ImageInfo = ({data}) => {
 
    const availableSize = [200, 400, 800]
-   const rootPath = "http://localhost:4005/image"
    let fileNameParts, fileExt, fileNameWithoutExt;
+
+   let apikey = ""
+   const token = localStorage.getItem("token");
+   if (token) {
+     const decodedToken = jwtDecode(token);
+     apikey = decodedToken.apikey;
+    
+   }
 
    if(data !== null){
        fileNameParts = data.name.split(".");
@@ -27,15 +36,16 @@ const ImageInfo = ({data}) => {
       <div class="file-info-conatiner">
       <p class="fw-semibold fs-5">Image Details:</p>
       <p class="fw-semibold mb-0">Image URL</p>
-      <p class="image-url-single mb-0">{`${rootPath}/${data.name}`}</p>
-      <p onClick={() => {handleCopyClick(`${rootPath}/${data.name}`)}} class="ps-2 mb-0 d-inline"><i class="fa-regular fa-copy fa=lg"></i></p>
+      <p class="image-url-single mb-0">{`${API_URL}/${"image"}/${data.name}?api_key=${apikey}`}</p>
+      <p onClick={() => {handleCopyClick(`${API_URL}/${"image"}/${data.name}?api_key=${apikey}`)}} class="ps-2 mb-0 d-inline"><i class="fa-regular fa-copy fa=lg"></i></p>
       <p class="fw-semibold mt-4 mb-0">Size</p>
       <p>{data.size + "KB"}</p>
       <p class="fw-semibold mb-1">Available Size</p>
       {availableSize.map(size => {
-         const fileName =  `${rootPath}/${fileNameWithoutExt}-${size}.${fileExt}` 
+         let fileName =  `${API_URL}/${"image"}/${fileNameWithoutExt}-${size}.${fileExt}` 
+         fileName += `?api_key=${apikey}`
         return <>
-        <span class="image-url pt-1">{fileName}</span>
+        <span class="image-url pt-1">{`${fileName}?api_key=${apikey}`}</span>
          <p onClick={() => {handleCopyClick(fileName)}} class="ps-2 mb-0 d-inline text-center"><i class="fa-regular fa-copy fa=lg"></i></p>
          <span class="badge rounded-pill bg-secondary ms-2">{size}</span>
         </>

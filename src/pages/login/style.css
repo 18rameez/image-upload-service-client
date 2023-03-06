@@ -3,7 +3,16 @@ body {
   height: 100%;
 }
 
+.signin-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+}
 
+.form-signin > h1 {
+  text-align: center;
+}
 
 .form-signin {
   width: 100%;

@@ -1,14 +1,22 @@
 import "./style.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from "../../api/config";
+
+
 const Login = () => {
+
+   const loginBtn = useRef(null)
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
+
+    loginBtn.current.innerText = "Loading..."
+ 
     event.preventDefault();
 
     const response = await fetch(API_URL+"/login", {
@@ -28,10 +36,13 @@ const Login = () => {
     } else {
       console.log("Failed to sign in");
       setError('Invalid email or password');
+      loginBtn.current.innerText = "Sign in"
     }
   };
 
   return (
+
+    <div class="signin-container">
     <form onSubmit={handleSubmit} class="form-signin" action="/login" method="post">
 
           {error && (
@@ -67,11 +78,14 @@ const Login = () => {
         </label>
       </div>
       <button
-        class="btn btn-lg form-control btn-primary btn-block mb-3"
+         ref={loginBtn}
+        class="btn btn-lg form-control btn-primary btn-block mb-3 "
         type="submit"
       >
         Sign in
       </button>
+
+      
 
       <a class="me-3" href="/forgot-password">
         Forgot password
@@ -82,7 +96,11 @@ const Login = () => {
         For testing purpose <br /> Email: demo@gmail.com, Password:1234
       </p>
     </form>
+
+    </div>
   );
 };
+
+
 
 export default Login;
