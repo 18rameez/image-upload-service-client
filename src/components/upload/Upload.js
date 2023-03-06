@@ -23,6 +23,13 @@ const Upload = ({ onclick }) => {
   
   function handleImageUpload(event) {
 
+    const fileType = event.target.files[0].type;
+  
+    if (!fileType.startsWith('image/')) {
+       alert('Selected file is not an image.')
+       return;
+    } 
+
     const currentDate = new Date();
     const newImage = {}
     uploadBtn.current.classList.toggle("d-none");
@@ -95,6 +102,7 @@ const Upload = ({ onclick }) => {
           <input
             type="file"
             name="upload_image"
+            accept="image/*"
             onChange={(e) => handleImageUpload(e)}
           />
           <i ref={uploadBtn} class="fa-solid fa-cloud-arrow-up text-primary "></i>
@@ -128,7 +136,7 @@ const Upload = ({ onclick }) => {
             <div>
               <p class="mb-0 image-url-single"> {singleImage.name}</p>
               <span class="mb-0 fw-light d-inline-block"> {`Uploaded on ${singleImage.uploaded_date}`}  |</span>
-              <span class="mb-0 fw-light "> {singleImage.size}</span>
+              <span class="mb-0 fw-light "> {singleImage.size + "KB"}</span>
             </div>
           </div>
         ))}

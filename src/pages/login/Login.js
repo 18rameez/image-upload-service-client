@@ -72,11 +72,7 @@ const Login = () => {
         placeholder="Password"
         required=""
       />
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" /> Remember me
-        </label>
-      </div>
+     
       <button
          ref={loginBtn}
         class="btn btn-lg form-control btn-primary btn-block mb-3 "
