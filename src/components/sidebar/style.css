@@ -1,0 +1,22 @@
+
+
+.file-container{
+   
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e7eaf3;
+}
+
+.single-file{
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+  padding: 10px;
+}
+
+.single-file > i{
+
+   color: burlywood ;
+  }

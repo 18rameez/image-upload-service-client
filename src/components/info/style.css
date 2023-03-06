@@ -1,0 +1,13 @@
+
+
+.file-info-conatiner{
+    padding: 10px;
+}
+
+.image-url {
+    display: inline-block;
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
