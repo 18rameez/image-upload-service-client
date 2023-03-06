@@ -91,7 +91,7 @@ const Signup = () => {
         Submit
       </button>
 
-      <a href="/login">Already have an account, please sign in</a>
+      <a role="button" onClick={() => {navigate('/login')}}>Already have an account, please sign in</a>
     </form>
     </div>
   );

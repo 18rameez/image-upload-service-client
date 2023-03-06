@@ -85,15 +85,14 @@ const Login = () => {
         Sign in
       </button>
 
-      
 
-      <a class="me-3" href="/forgot-password">
+      <span class="me-3" role="button">
         Forgot password
-      </a>
-      <a href="/signup">Create a new account</a>
+      </span>
+      <a role="button" onClick={() => navigate('/signup')}>Create a new account</a>
       <p>
-        {" "}
-        For testing purpose <br /> Email: demo@gmail.com, Password:1234
+        
+       Demo account: <br /> Email: demo@gmail.com, Password:1234
       </p>
     </form>
 
