@@ -1,7 +1,7 @@
 import "./style.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import { API_URL } from "../../api/config";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,7 +11,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:4005/login", {
+    const response = await fetch(API_URL+"/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

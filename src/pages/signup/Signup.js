@@ -1,6 +1,7 @@
 import "./style.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../api/config";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -13,7 +14,7 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:4005/signup", {
+    const response = await fetch(API_URL+"/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

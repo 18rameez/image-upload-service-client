@@ -1,6 +1,7 @@
 import "./style.css";
 import { useState, useEffect, useRef } from "react";
 import jwtDecode from "jwt-decode";
+import { API_URL } from "../../api/config";
 
 const Upload = ({ onclick }) => {
  
@@ -35,7 +36,7 @@ const Upload = ({ onclick }) => {
     newImage.userId  = userId;
     newImage.uploaded_date = currentDate.toDateString()
 
-    fetch("http://localhost:4005/image/upload", {
+    fetch(API_URL+"/image/upload", {
       method: "POST",
       body: formData,
     })
@@ -57,7 +58,7 @@ const Upload = ({ onclick }) => {
       userId: userId,
     };
 
-    fetch("http://localhost:4005/image/getAll", {
+    fetch(API_URL+"/image/getAll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
